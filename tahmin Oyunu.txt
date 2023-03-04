@@ -1,0 +1,90 @@
+// tahmin oyunu basit formda sadece koşul ve döngüler kullanılarak
+
+         
+        MENU:
+            Console.WriteLine(" tahmin oyununa hoş geldiniz....");
+            Console.WriteLine(" şimdi 1-30 arasından rastgele belirlenen bir sayıya ulaşmaya çalışacaksınız...");
+            Console.WriteLine(" Ama bu oyunda bir rakibiniz var oda PC :)");
+            Console.WriteLine(" 30dan başlayarak 1 veya iki azaltma seçeneklerinden birini seçeceksiniz..");
+            Console.WriteLine(" sayıyı ilk tahmin eden kazanır.");
+            Console.WriteLine(" hadi başlayalım ");
+            int kullanicitahmin = 30, pc = 30,azaltim, pcnintahmini;
+            Console.WriteLine(" başlamak için  entera basınız");
+            Console.ReadLine();
+            Console.Clear();//Console Ekranın Temizlemek için....
+            Console.WriteLine(" OYUN BAŞLIYOR ");
+            System.Threading.Thread.Sleep(3000);//Ekaranı 3 sn bekletmek için sonra sıradaki işlem yapılacak...
+            Console.Clear();
+            Random rastgele = new Random();
+            int sayi = rastgele.Next(1, 30);
+            for (int i = 0; i < 30; i++)
+            {
+            forbaslangic:
+                
+                Console.WriteLine(" Lütfen azaltmak istediğiniz sayı adedini giriniz.. [1-2] =?");
+                azaltim = Convert.ToInt16(Console.ReadLine());
+                if (azaltim != 1 && azaltim != 2)
+                { 
+                    Console.WriteLine("yanlış bir seçim yaptınız tekrar deneyiniz.");
+                    System.Threading.Thread.Sleep(2000);
+                    Console.Clear();
+                    goto forbaslangic;
+                }
+                kullanicitahmin = pc - azaltim;
+                if (kullanicitahmin >= sayi)
+                {
+                    if (kullanicitahmin == sayi)
+                    {
+                        Console.WriteLine("  TEBİKLER KAZANDINIZ");
+                        Console.WriteLine(" TAHMİN EDİLEN SAYI  : {0} ", sayi);    
+                        break;     
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(" malesef oyun bitti kazanan çıkmadı. :(");
+                    Console.WriteLine("Sayı {0} dı ",sayi);
+                    break;
+                }
+                 pcnintahmini = rastgele.Next(1, 3);
+                pc = kullanicitahmin - pcnintahmini;
+                if (pc >= sayi)
+                {
+                    if (pc == sayi)
+                    {
+                        Console.WriteLine("  MALESEF PC KAZANDI :(");
+                        Console.WriteLine(" TAHMİN EDİLEN SAYI  : {0} ", sayi);
+                        break;
+                    }
+                }
+                Console.WriteLine(" Tahmininiz : {0}", kullanicitahmin);
+                Console.WriteLine(" Pc nin tahmini : {0}", pc);
+                Console.WriteLine("*************************************");
+                System.Threading.Thread.Sleep(3000);
+                Console.Clear();
+
+
+
+            }
+        yeniden:
+            Console.WriteLine("Yeniden oynamak ister misiniz? [evet:e,hayır:h]");
+            string secim = Console.ReadLine().ToLower();//ToLower() : Girilen ifadeyi Küçük harfe çevirir..
+            if (secim == "e")
+            {
+                Console.Clear();
+                goto MENU;
+
+            }
+            else if (secim == "h")
+            {
+                Console.Clear();
+                Console.WriteLine("                   \n\n\n\nİYİ Günler");
+                System.Threading.Thread.Sleep(2000);
+                Environment.Exit(0);//Console ekranını kapatmak için bir komut...
+
+            }
+            else
+            {
+                Console.WriteLine("Yanlış seçim yaptınız...1 veya 2 seçimi yapmalısınız...");
+                goto yeniden;
+            }
